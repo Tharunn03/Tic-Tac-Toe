@@ -27,24 +27,22 @@ bool regame()
     regame();
 }
 
-void game(vector<vector<char>> &ttt)
+void game(vector<vector<char>> ttt)
 {
     system("cls");
-    print(ttt);
     cout << "its X 's turn." << endl;
     cout << "Enter any number from 1 - 9 : ";
     int val; cin >> val;
-    int row = (val - 1) / 3;
-    int col = (val - 1) % 3;
-    if (ttt[row][col] == '_')
+    int row;
+    while (val >= 3)
     {
-        ttt[row][col] = 'X';
+	val = val - 3;
+	row++;
     }
-    else
-    {
-        cout << "Invalid move! Try again." << endl;
-        game(ttt);
-    }
+    int col = val;
+    ttt[col][row] = 'X';
+    print(ttt);
+
 
 }
 
