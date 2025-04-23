@@ -27,6 +27,17 @@ bool regame()
     regame();
 }
 
+void game_logic(vector<vector<char>> &ttt)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        if (ttt[i][0] == ttt[i][1] and ttt[i][1] == ttt[i][2])
+        {
+            cout << ttt[i][0] << " is the winner!";
+        }
+    }
+}
+
 void game(vector<vector<char>> &ttt)
 {
     system("cls");
