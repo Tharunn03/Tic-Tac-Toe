@@ -4,6 +4,13 @@ using namespace std;
 // matrix for the tic tac toe
 vector<vector<char>> ttt(3, vector<char>(3, '_'));
 
+// game logic check
+bool check = true;
+
+// function declaration
+void game_logic(vector<vector<char>> &ttt);
+void game(vector<vector<char>> &ttt);
+
 
 void print(vector<vector<char>> &v)
 {
@@ -17,6 +24,7 @@ void print(vector<vector<char>> &v)
     }
 }
 
+// regame
 bool regame()
 {
     system("cls");
@@ -24,24 +32,11 @@ bool regame()
     char ans; cin >> ans;
     if (ans == 'y' || ans == 'Y') return true;
     if (ans == 'n' || ans == 'N') return false;
-    regame();
+    return regame();
 }
 
-void game_logic(vector<vector<char>> &ttt)
+void x_turn()
 {
-    for (int i = 0; i < 3; i++)
-    {
-        if (ttt[i][0] == ttt[i][1] and ttt[i][1] == ttt[i][2])
-        {
-            cout << ttt[i][0] << " is the winner!";
-        }
-    }
-}
-
-void game(vector<vector<char>> &ttt)
-{
-    system("cls");
-    print(ttt);
     cout << "its X 's turn." << endl;
     cout << "Enter any number from 1 - 9 : ";
     int val; cin >> val;
@@ -54,11 +49,81 @@ void game(vector<vector<char>> &ttt)
     else
     {
         cout << "Invalid move! Try again." << endl;
-        game(ttt);
+        x_turn();
     }
+    check = false;
 
+    game(ttt);
+    
+}
+void y_turn()
+{
+    cout << "its O 's turn." << endl;
+    cout << "Enter any number from 1 - 9 : ";
+    int val; cin >> val;
+    int row = (val - 1) / 3;
+    int col = (val - 1) % 3;
+    if (ttt[row][col] == '_')
+    {
+        ttt[row][col] = 'O';
+    }
+    else
+    {
+        cout << "Invalid move! Try again." << endl;
+        y_turn();
+    }
+    check = true;
+    game(ttt);
 }
 
+// game logic
+void game_logic(vector<vector<char>> &ttt)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        if (ttt[i][0] == ttt[i][1] and ttt[i][1] == ttt[i][2])
+        {
+            cout << ttt[i][0] << " is the winner!";
+        }
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+        if (ttt[0][i] == ttt[1][i] and ttt[1][i] == ttt[2][i])
+        {
+            cout << ttt[0][i] << " is the winner !";
+        }
+    }
+
+    if (ttt[0][0] == ttt[1][1] and ttt[1][1] == ttt[2][2])
+    {
+        cout << ttt[0][0] << " is the winner !";
+    }
+    
+    if (ttt[2][0] == ttt[1][1] and ttt[1][1] == ttt[0][2])
+    {
+        cout << ttt[1][1] << " is the winner !";
+    }
+}
+
+// main game
+void game(vector<vector<char>> &ttt)
+{
+    system("cls");
+    print(ttt);
+
+    
+    if (check)
+    {
+        x_turn();
+    }
+    else
+    {
+        y_turn();
+    }
+}
+
+// functioncallmain
 int main()
 {
     system("cls");
